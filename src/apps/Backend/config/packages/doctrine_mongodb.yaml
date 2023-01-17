@@ -8,10 +8,6 @@ doctrine_mongodb:
     default_database: '%env(resolve:MONGODB_DB)%'
     document_managers:
         default:
-            filters:
-                tenant_filter:
-                    class: App\Infrastructure\Persistence\Doctrine\Filter\TenantFilter
-                    enabled: true
             auto_mapping: true
             mappings:
                 Static:

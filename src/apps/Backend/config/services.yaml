@@ -1,12 +1,5 @@
 # This file is the entry point to configure your own services.
 parameters:
-    shops:
-        Daydeal:
-            languages: [ 'de', 'fr' ]
-            defaultLanguage: 'de'
-        Blickdeal:
-            languages: [ 'de', 'fr' ]
-            defaultLanguage: 'de'
     exception_to_status:
         App\Shared\Domain\Exception\EntityNotFoundException: 404
         App\Infrastructure\Exception\ValidationErrorsException: 422
@@ -29,19 +22,12 @@ services:
             - '../../../src/Domain/Entity/*'
             - '../../../src/Domain/ValueObject/*'
             - '../../../src/Application/Dto/*'
-            - '../../../src/Application/Command/*/*/Impl/*'
-            - '../../../src/Application/Query/*/*/Impl/*'
+            - '../../../src/Application/Command/Impl/*'
+            - '../../../src/Application/Query/Impl/*'
             - '../../../src/Infrastructure/Persistence/Doctrine/Migrations/*'
             - '../../../src/Shared/Domain/ValueObject/*'
             - '../../../src/Shared/Application/Attributes/*'
             - '../../../src/Shared/Application/Dto/*'
-            - '../../../src/Shared/Domain/Tenant/Tenant.php'
-    App\Infrastructure\Translations\DeeplClient:
-        arguments:
-            $apiKey: '%env(DEEPL_API_KEY)%'
-    App\Shared\Domain\Tenant\TenantResolver:
-        arguments:
-            - "%shops%"
     Backend\Listener\ExceptionListener:
         arguments:
             - '@Psr\Log\LoggerInterface'
@@ -51,11 +37,11 @@ services:
             - { name: 'kernel.event_listener', event: 'kernel.exception' }
     command_handlers:
         namespace: App\Application\Command\
-        resource: '../../../src/Application/Command/*/*/Handler/*'
+        resource: '../../../src/Application/Command/Handler/*'
         tags:
             - { name: messenger.message_handler, bus: command.bus }
     query_handlers:
         namespace: App\Application\Query\
-        resource: '../../../src/Application/Query/*/*/Handler/*'
+        resource: '../../../src/Application/Query/Handler/*'
         tags:
             - { name: messenger.message_handler, bus: query.bus }

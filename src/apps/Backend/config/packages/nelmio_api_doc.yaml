@@ -1,8 +1,8 @@
 nelmio_api_doc:
     documentation:
         info:
-            title: DD4 Admin
-            description: Admin api
+            title: Notify
+            description: Notify doc
             version: 1.0.0
     areas: # to filter documented areas
         path_patterns:
