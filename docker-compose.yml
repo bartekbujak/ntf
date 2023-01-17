@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+  backend:
+    container_name: dd_template_backend
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    build:
+      context: ./
+      dockerfile: ./docker/php/Dockerfile
+      target: dev
+    ports:
+      - "3002:80"
+    volumes:
+      - ./src:/var/www/html:delegated
+  mongo:
+    container_name: dd_template_mongo
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 123
+  mongo-express:
+    container_name: dd_template_mongo_express
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: 123
+      ME_CONFIG_MONGODB_URL: mongodb://root:123@mongo:27017/

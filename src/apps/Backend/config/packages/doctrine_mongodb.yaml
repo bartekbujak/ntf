@@ -1,0 +1,29 @@
+doctrine_mongodb:
+    auto_generate_proxy_classes: true
+    auto_generate_hydrator_classes: true
+    connections:
+        default:
+            server: '%env(resolve:MONGODB_URL)%'
+            options: {}
+    default_database: '%env(resolve:MONGODB_DB)%'
+    document_managers:
+        default:
+            filters:
+                tenant_filter:
+                    class: App\Infrastructure\Persistence\Doctrine\Filter\TenantFilter
+                    enabled: true
+            auto_mapping: true
+            mappings:
+                Static:
+                    is_bundle: false
+                    type: xml
+                    dir: '%kernel.project_dir%/../../src/Infrastructure/Persistence/Doctrine/Mapping'
+                    prefix: 'App\Domain'
+                    alias: Static
+                Shared:
+                    is_bundle: false
+                    type: xml
+                    dir: '%kernel.project_dir%/../../src/Shared/Infrastructure/Persistence/Doctrine/Mapping'
+                    prefix: 'App\Shared\Domain'
+                    alias: Shared
+

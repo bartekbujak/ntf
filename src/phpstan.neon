@@ -1,0 +1,7 @@
+parameters:
+  level: 4
+  paths:
+    - src
+    - tests
+  #ignoreErrors:
+    #- '#Property .+::\$id is never written, only read\.#'

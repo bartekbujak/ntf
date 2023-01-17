@@ -1,0 +1,113 @@
+{
+    "type": "project",
+    "license": "proprietary",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.1",
+        "ext-bcmath": "*",
+        "ext-ctype": "*",
+        "ext-iconv": "*",
+        "ext-mongodb": "*",
+        "composer/package-versions-deprecated": "1.11.99.2",
+        "doctrine/doctrine-bundle": "^2.4",
+        "doctrine/doctrine-migrations-bundle": "^3.1",
+        "doctrine/mongodb-odm-bundle": "^4.4",
+        "doctrine/orm": "^2.9",
+        "jms/serializer-bundle": "^3.10",
+        "lexik/jwt-authentication-bundle": "^2.15",
+        "nelmio/api-doc-bundle": "^4.6",
+        "nelmio/cors-bundle": "^2.1",
+        "ramsey/uuid": "^4.2",
+        "symfony/asset": "5.3.*",
+        "symfony/console": "5.3.*",
+        "symfony/dotenv": "5.3.*",
+        "symfony/flex": "^1.3.1",
+        "symfony/framework-bundle": "5.3.*",
+        "symfony/http-client": "5.3.*",
+        "symfony/messenger": "5.3.*",
+        "symfony/mime": "5.3.*",
+        "symfony/monolog-bundle": "^3.7",
+        "symfony/property-access": "5.3.*",
+        "symfony/proxy-manager-bridge": "5.3.*",
+        "symfony/runtime": "5.3.*",
+        "symfony/twig-bundle": "5.3.*",
+        "symfony/uid": "5.3.*",
+        "symfony/validator": "5.3.*",
+        "symfony/yaml": "5.3.*",
+        "twig/extra-bundle": "^2.12|^3.0",
+        "twig/twig": "^2.12|^3.0"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "symfony/flex": true,
+            "symfony/runtime": true,
+            "phpstan/extension-installer": false
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/",
+            "Backend\\": "apps/Backend/src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php72": "*"
+    },
+    "scripts": {
+        "console": "php apps/Backend/bin/console",
+        "tests": "composer ecs;composer phpstan;composer phpunit",
+        "ecs": "./vendor/bin/ecs check",
+        "phpstan": "./vendor/bin/phpstan analyse",
+        "phpunit": "composer drop-test-schema;composer test-fixtures;./vendor/bin/phpunit",
+        "drop-test-schema": "php apps/Backend/bin/console doctrine:mongodb:schema:drop --env=test",
+        "test-fixtures": "php apps/Backend/bin/console doctrine:mongodb:fixtures:load --env=test -q",
+        "run-migrations": "apps/Backend/bin/console d:m:m --dry-run",
+        "run-assets": "apps/Backend/bin/console assets:install",
+        "auto-scripts": {
+            "apps/Backend/bin/console cache:clear": "script",
+            "apps/Backend/bin/console assets:install %PUBLIC_DIR%": "script"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ]
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "5.3.*"
+        }
+    },
+    "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "phpstan/extension-installer": "^1.1",
+        "phpstan/phpstan": "^1.2",
+        "phpunit/phpunit": "^9.5",
+        "symfony/browser-kit": "^5.3",
+        "symfony/css-selector": "^5.3",
+        "symfony/debug-bundle": "5.3.*",
+        "symfony/phpunit-bridge": "^5.3",
+        "symfony/stopwatch": "5.3.*",
+        "symfony/web-profiler-bundle": "5.3.*",
+        "symplify/easy-coding-standard": "^10.1"
+    }
+}

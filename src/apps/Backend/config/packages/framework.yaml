@@ -1,0 +1,41 @@
+    # see https://symfony.com/doc/current/reference/configuration/framework.html
+framework:
+    secret: '%env(APP_SECRET)%'
+    #csrf_protection: true
+    http_method_override: false
+
+    # Enables session support. Note that the session will ONLY be started if you read or write from it.
+    # Remove or comment this section to explicitly disable session support.
+    session:
+        handler_id: null
+        cookie_secure: auto
+        cookie_samesite: lax
+        storage_factory_id: session.storage.factory.native
+
+    #esi: true
+    #fragments: true
+    php_errors:
+        log: true
+
+    http_client:
+        scoped_clients:
+            radar.client:
+                base_uri: 'https://stats.fn.sportradar.com/fortuna2/pl/Europe:Berlin/gismo/'
+                headers:
+                    accept: '*/*'
+#                    accept-encoding: 'gzip, deflate, br'
+                    accept-language: 'pl-PL,pl;q=0.9,en-US;q=0.8,en;q=0.7'
+                    origin: 'https://s5.sir.sportradar.com'
+                    referer: 'https://s5.sir.sportradar.com/'
+                    sec-ch-ua: '"Google Chrome";v="93", " Not;A Brand";v="99", "Chromium";v="93"'
+                    sec-ch-ua-mobile: '?0'
+                    sec-ch-ua-platform: 'macOS'
+                    sec-fetch-dest: 'empty'
+                    sec-fetch-mode: 'cors'
+                    sec-fetch-site: 'same-site'
+                    user-agent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
+when@test:
+    framework:
+        test: true
+        session:
+            storage_factory_id: session.storage.factory.mock_file
