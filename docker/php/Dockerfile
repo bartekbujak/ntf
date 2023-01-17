@@ -1,53 +1,44 @@
-####
-## Build for production
-####
-FROM alpine:3.13 as production
+FROM alpine:3.16
 
-ADD https://php.hernandev.com/key/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
-RUN apk --update-cache add ca-certificates && \
-    echo "@php https://php.hernandev.com/v3.13/php-8.1" >> /etc/apk/repositories
-
-RUN apk update && apk upgrade
-
-RUN apk update && apk upgrade && \
-    apk add bash vim curl git py-pip jq libcap
-
-RUN pip install --upgrade pip
-RUN pip install awscli
-
-RUN apk add --update \
-    php@php \
-    php-fpm@php \
-    php-ctype@php \
-    php-curl@php \
-    php-dom@php \
-    php-iconv@php \
-    php-intl@php \
-    php-mbstring@php \
-    php-opcache@php \
-    php-openssl@php \
-    php-pdo@php \
-    php-phar@php \
-    php-session@php \
-    php-sockets@php \
-    php-xml@php \
-    php-zlib@php \
-    php-pdo@php \
-    php-bcmath@php \
-    php-gmp@php \
-    php-mongodb@php \
-    supervisor \
-    nginx
+RUN apk add --no-cache \
+    bash nginx curl jq supervisor tzdata \
+    php81-fpm \
+    php81-curl \
+    php81-ctype \
+    php81-dom \
+    php81-fileinfo \
+    php81-bcmath \
+    php81-iconv \
+    php81-intl \
+    php81-gmp \
+    php81-mbstring \
+    php81-mongodb \
+    php81-opcache \
+    php81-openssl \
+    php81-pdo \
+    php81-phar \
+    php81-redis \
+    php81-simplexml \
+    php81-sockets \
+    php81-sodium \
+    php81-tokenizer \
+    php81-zlib \
+    php81-xml \
+    php81-xmlwriter
 
 # Create symlink so programs depending on `php` still function
-RUN ln -s /usr/bin/php8 /usr/bin/php
+RUN ln -s /usr/bin/php81 /usr/bin/php
+
+# Timezone
+RUN apk add tzdata
+RUN cp /usr/share/zoneinfo/Europe/Zurich /etc/localtime
+RUN echo "Europe/Zurich" >  /etc/timezone
+RUN apk del tzdata
 
 # Configure nginx
-COPY docker/php/nginx-server.conf /etc/nginx/nginx.conf
+COPY docker/php/nginx/ /etc/nginx/
 
-# Configure PHP-FPM
-COPY docker/php/php-fpm-settings.conf /etc/php8/php-fpm.d/www.conf
-COPY docker/php/php-settings.ini /etc/php8/conf.d/custom.ini
+COPY docker/php/php/ /etc/php81/
 
 # Configure supervisord
 COPY docker/php/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
@@ -62,23 +53,13 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin -
 RUN composer install -o --prefer-dist
 RUN composer run-assets
 
-RUN rm /etc/nginx/conf.d/default.conf
+RUN chown -R nginx:nginx /var/www/html /run /var/lib/nginx /var/log/nginx
+
+USER nginx
+
 # Expose the port nginx is reachable on
 EXPOSE 80
 EXPOSE 443
 
-ENTRYPOINT ["./secrets-entrypoint.sh"]
 # Let supervisord start nginx & php-fpm
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
-
-####
-## Build for local development
-####
-FROM production as dev
-
-## Xdebug config
-COPY docker/php/xdebug.ini /etc/php8/conf.d/xdebug.ini
-
-RUN apk add --update \
-    php-pear@php \
-    php-xdebug@php

@@ -2,26 +2,23 @@ version: '3.4'
 
 services:
   backend:
-    container_name: dd_template_backend
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+    container_name: notify_backend
     build:
       context: ./
       dockerfile: ./docker/php/Dockerfile
-      target: dev
     ports:
-      - "3002:80"
+      - "3000:80"
     volumes:
       - ./src:/var/www/html:delegated
   mongo:
-    container_name: dd_template_mongo
+    container_name: notify_mongo
     image: mongo
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: 123
   mongo-express:
-    container_name: dd_template_mongo_express
+    container_name: notify_mongo_express
     image: mongo-express
     restart: always
     ports:

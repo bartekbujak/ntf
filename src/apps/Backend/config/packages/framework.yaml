@@ -17,23 +17,10 @@ framework:
     php_errors:
         log: true
 
-    http_client:
-        scoped_clients:
-            radar.client:
-                base_uri: 'https://stats.fn.sportradar.com/fortuna2/pl/Europe:Berlin/gismo/'
-                headers:
-                    accept: '*/*'
-#                    accept-encoding: 'gzip, deflate, br'
-                    accept-language: 'pl-PL,pl;q=0.9,en-US;q=0.8,en;q=0.7'
-                    origin: 'https://s5.sir.sportradar.com'
-                    referer: 'https://s5.sir.sportradar.com/'
-                    sec-ch-ua: '"Google Chrome";v="93", " Not;A Brand";v="99", "Chromium";v="93"'
-                    sec-ch-ua-mobile: '?0'
-                    sec-ch-ua-platform: 'macOS'
-                    sec-fetch-dest: 'empty'
-                    sec-fetch-mode: 'cors'
-                    sec-fetch-site: 'same-site'
-                    user-agent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36'
+#    http_client:
+#        scoped_clients:
+#            radar.client:
+
 when@test:
     framework:
         test: true
