@@ -1,4 +1,13 @@
 {
+    "aws/aws-crt-php": {
+        "version": "v1.0.2"
+    },
+    "aws/aws-sdk-php": {
+        "version": "3.257.5"
+    },
+    "beberlei/assert": {
+        "version": "v3.3.2"
+    },
     "brick/math": {
         "version": "0.9.3"
     },
@@ -115,6 +124,15 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
+    "guzzlehttp/guzzle": {
+        "version": "7.5.0"
+    },
+    "guzzlehttp/promises": {
+        "version": "1.5.2"
+    },
+    "guzzlehttp/psr7": {
+        "version": "2.4.3"
+    },
     "jean85/pretty-package-versions": {
         "version": "2.0.5"
     },
@@ -141,35 +159,17 @@
     "laminas/laminas-code": {
         "version": "4.4.0"
     },
-    "lcobucci/clock": {
-        "version": "2.1.0"
-    },
-    "lcobucci/jwt": {
-        "version": "4.0.4"
-    },
-    "lexik/jwt-authentication-bundle": {
-        "version": "2.15",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "2.5",
-            "ref": "5b2157bcd5778166a5696e42f552ad36529a07a6"
-        },
-        "files": [
-            "config/packages/lexik_jwt_authentication.yaml"
-        ]
-    },
     "mongodb/mongodb": {
         "version": "1.10.1"
     },
     "monolog/monolog": {
         "version": "2.3.5"
     },
+    "mtdowling/jmespath.php": {
+        "version": "2.6.1"
+    },
     "myclabs/deep-copy": {
         "version": "1.10.2"
-    },
-    "namshi/jose": {
-        "version": "7.2.3"
     },
     "nelmio/api-doc-bundle": {
         "version": "3.0",
@@ -182,18 +182,6 @@
         "files": [
             "config/packages/nelmio_api_doc.yaml",
             "config/routes/nelmio_api_doc.yaml"
-        ]
-    },
-    "nelmio/cors-bundle": {
-        "version": "1.5",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "1.5",
-            "ref": "6bea22e6c564fba3a1391615cada1437d0bde39c"
-        },
-        "files": [
-            "config/packages/nelmio_cors.yaml"
         ]
     },
     "nikic/php-parser": {
@@ -264,8 +252,20 @@
     "psr/event-dispatcher": {
         "version": "1.0.0"
     },
+    "psr/http-client": {
+        "version": "1.0.1"
+    },
+    "psr/http-factory": {
+        "version": "1.0.1"
+    },
+    "psr/http-message": {
+        "version": "1.0.1"
+    },
     "psr/log": {
         "version": "1.1.4"
+    },
+    "ralouphie/getallheaders": {
+        "version": "3.0.3"
     },
     "ramsey/collection": {
         "version": "1.2.1"
@@ -454,9 +454,6 @@
             "config/packages/messenger.yaml"
         ]
     },
-    "symfony/mime": {
-        "version": "v5.3.14"
-    },
     "symfony/monolog-bridge": {
         "version": "v5.3.7"
     },
@@ -481,9 +478,6 @@
     "symfony/orm-pack": {
         "version": "v2.1.0"
     },
-    "symfony/password-hasher": {
-        "version": "v5.3.14"
-    },
     "symfony/phpunit-bridge": {
         "version": "5.3",
         "recipe": {
@@ -502,17 +496,11 @@
     "symfony/polyfill-intl-grapheme": {
         "version": "v1.23.0"
     },
-    "symfony/polyfill-intl-idn": {
-        "version": "v1.24.0"
-    },
     "symfony/polyfill-intl-normalizer": {
         "version": "v1.23.0"
     },
     "symfony/polyfill-mbstring": {
         "version": "v1.23.0"
-    },
-    "symfony/polyfill-php56": {
-        "version": "v1.20.0"
     },
     "symfony/polyfill-php73": {
         "version": "v1.23.0"
@@ -525,9 +513,6 @@
     },
     "symfony/polyfill-uuid": {
         "version": "v1.24.0"
-    },
-    "symfony/property-access": {
-        "version": "v5.3.14"
     },
     "symfony/property-info": {
         "version": "v5.3.8"
@@ -553,30 +538,6 @@
     },
     "symfony/runtime": {
         "version": "v5.3.2"
-    },
-    "symfony/security-bundle": {
-        "version": "5.3",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "5.3",
-            "ref": "98f1f2b0d635908c2b40f3675da2d23b1a069d30"
-        },
-        "files": [
-            "config/packages/security.yaml"
-        ]
-    },
-    "symfony/security-core": {
-        "version": "v5.3.14"
-    },
-    "symfony/security-csrf": {
-        "version": "v5.3.14"
-    },
-    "symfony/security-guard": {
-        "version": "v5.3.14"
-    },
-    "symfony/security-http": {
-        "version": "v5.3.14"
     },
     "symfony/service-contracts": {
         "version": "v2.4.0"
