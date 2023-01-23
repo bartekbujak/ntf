@@ -14,8 +14,7 @@ class MailgunClient
     public function __construct(
         private readonly string $domain,
         string $apiKey
-    )
-    {
+    ) {
         $this->mgClient= Mailgun::create($apiKey);
 
     }
@@ -27,7 +26,7 @@ class MailgunClient
     {
         $this->mgClient->messages()->send($this->domain, [
             'from' => 'noreply@' . $this->domain,
-            'to' => (string)$email,
+            'to' => (string) $email,
             'subject' => 'Notification',
             'text' => $message
         ]);

@@ -5,8 +5,13 @@ namespace App\Domain\Strategy;
 
 use App\Domain\Entity\Customer;
 use App\Domain\Service\ChannelProviderCollection;
+use App\Domain\ValueObject\NotificationTranslation;
 
 interface ProviderStrategy
 {
-    public function getProviders(Customer $customer, ChannelProviderCollection $enabledProviders): ChannelProviderCollection;
+    public function execute(
+        Customer $customer,
+        NotificationTranslation $notificationTranslation,
+        ChannelProviderCollection $providersForCustomer
+    ): void;
 }

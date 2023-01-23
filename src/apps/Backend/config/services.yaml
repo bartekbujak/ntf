@@ -47,11 +47,22 @@ services:
         arguments:
             $isEnabled: '%env(bool:AMAZON_SES_ENABLED)%'
         tags:
+            - { name: 'app.provider', priority: 0 }
+    App\Infrastructure\Provider\Twilio\TwilioProvider:
+        arguments:
+            $isEnabled: '%env(bool:TWILIO_ENABLED)%'
+        tags:
             - { name: 'app.provider', priority: 1 }
     App\Infrastructure\Provider\Mailgun\MailgunClient:
         arguments:
             $domain: '%env(MAILGUN_DOMAIN)%'
             $apiKey: '%env(MAILGUN_API_KEY)%'
+    App\Infrastructure\Provider\Twilio\TwilioClient:
+        arguments:
+            $sid: '%env(TWILIO_SID)%'
+            $token: '%env(TWILIO_TOKEN)%'
+            $twilioPhone: '%env(TWILIO_PHONE)%'
+    App\Domain\Strategy\ProviderStrategy: '@App\Domain\Strategy\AllAvailableProviderStrategy'
     command_handlers:
         namespace: App\Application\Command\Handler\
         resource: '../../../src/Application/Command/Handler/*'

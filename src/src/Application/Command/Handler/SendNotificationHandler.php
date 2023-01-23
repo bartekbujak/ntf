@@ -4,20 +4,15 @@ declare(strict_types=1);
 namespace App\Application\Command\Handler;
 
 use App\Application\Command\Impl\SendNotificationCommand;
-use App\Application\Event\Impl\NotificationFailedEvent;
-use App\Application\Event\Impl\NotificationSucceedEvent;
-use App\Domain\Exception\NotificationSendFailed;
 use App\Domain\Exception\NotificationTranslationNotFound;
 use App\Domain\Service\ChannelProviderCollection;
 use App\Domain\Strategy\ProviderStrategy;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class SendNotificationHandler
 {
     public function __construct(
-        private readonly ChannelProviderCollection $providerCollection,
-        private readonly EventDispatcherInterface $eventDispatcher,
         private readonly ProviderStrategy $providerStrategy,
+        private readonly ChannelProviderCollection $enabledProviders,
     ) {}
 
     public function __invoke(SendNotificationCommand $command): void
@@ -28,19 +23,13 @@ class SendNotificationHandler
             );
         } catch (NotificationTranslationNotFound) {
             return;
-            // Skip customer, other solutions: get different language, translate using translator to preferred language.
+            // Skip notification, other solutions: get different language, translate using translator to preferred language.
         }
-        $providers = $this->providerStrategy->getProviders(
+        $providersForCustomer = $this->enabledProviders->createCollectionForCustomer($command->customer);
+        $this->providerStrategy->execute(
             $command->customer,
-            $this->providerCollection,
+            $notificationTranslation,
+            $providersForCustomer
         );
-        foreach ($providers as $provider) {
-            try {
-                $provider->sendNotification($command->customer, $notificationTranslation);
-                $this->eventDispatcher->dispatch(new NotificationSucceedEvent());
-            } catch (NotificationSendFailed) {
-                $this->eventDispatcher->dispatch(new NotificationFailedEvent());
-            }
-        }
     }
 }

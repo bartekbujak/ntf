@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "31dc1e74b82c453ce984bc69960c1001",
+    "content-hash": "b2eed5f6ae8b342c371b5c268f7b3ce8",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -8607,6 +8607,55 @@
                 }
             ],
             "time": "2022-02-04T06:59:48+00:00"
+        },
+        {
+            "name": "twilio/sdk",
+            "version": "6.44.1",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:twilio/twilio-php.git",
+                "reference": "0739f62e6280d9a20925d2f30a71bfd2bcac48f5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twilio/twilio-php/zipball/0739f62e6280d9a20925d2f30a71bfd2bcac48f5",
+                "reference": "0739f62e6280d9a20925d2f30a71bfd2bcac48f5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "^6.3 || ^7.0",
+                "phpunit/phpunit": ">=7.0"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "An HTTP client to execute the API requests"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Twilio\\": "src/Twilio/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Twilio API Team",
+                    "email": "api@twilio.com"
+                }
+            ],
+            "description": "A PHP wrapper for Twilio's API",
+            "homepage": "https://github.com/twilio/twilio-php",
+            "keywords": [
+                "api",
+                "sms",
+                "twilio"
+            ],
+            "time": "2023-01-11T14:02:06+00:00"
         },
         {
             "name": "webmozart/assert",
