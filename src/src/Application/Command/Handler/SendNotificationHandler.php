@@ -4,32 +4,36 @@ declare(strict_types=1);
 namespace App\Application\Command\Handler;
 
 use App\Application\Command\Impl\SendNotificationCommand;
-use App\Domain\Exception\MessageSendFailedException;
+use App\Application\Event\Impl\NotificationFailedEvent;
+use App\Application\Event\Impl\NotificationSucceedEvent;
+use App\Domain\Exception\NotificationSendFailed;
 use App\Domain\Service\ChannelProviderCollection;
-use App\Domain\Service\Tracker;
-use App\Domain\Strategy\MultipleProviderStrategy;
+use App\Domain\Strategy\ProviderStrategy;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class SendNotificationHandler
 {
     public function __construct(
         private readonly ChannelProviderCollection $providerCollection,
-        private readonly Tracker $tracker,
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly ProviderStrategy $providerStrategy,
     ) {}
 
     public function __invoke(SendNotificationCommand $command): void
     {
-        $message = $command->dto->getByLanguage($command->customer->preferredLanguage());
-        $providers = $this->providerCollection->getProvidersForCustomer(
-            $command->customer,
-            new MultipleProviderStrategy()
+        $notificationTranslation = $command->notification->translationCollection->getByPreferredLanguage(
+            $command->customer->preferredLanguage()
         );
-        $failedProviders = [];
+        $providers = $this->providerStrategy->getProviders(
+            $command->customer,
+            $this->providerCollection,
+        );
         foreach ($providers as $provider) {
             try {
-                $provider->sendNotification($command->customer, $message);
-                $this->tracker->track($message, $provider->getName(), 'customerName');
-            } catch (MessageSendFailedException) {
-                $failedProviders = $provider;
+                $provider->sendNotification($command->customer, $notificationTranslation);
+                $this->eventDispatcher->dispatch(new NotificationSucceedEvent());
+            } catch (NotificationSendFailed) {
+                $this->eventDispatcher->dispatch(new NotificationFailedEvent());
             }
         }
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Application\Command\Handler;
 
 use App\Application\Command\Impl\BatchNotificationCommand;
+use App\Application\Command\Impl\CreateNotificationCommand;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 class CreateNotificationHandler
@@ -12,7 +13,7 @@ class CreateNotificationHandler
         private MessageBusInterface $commandBus,
     ) {}
 
-    public function __invoke(BatchNotificationCommand $command): void
+    public function __invoke(CreateNotificationCommand $command): void
     {
         $this->commandBus->dispatch(new BatchNotificationCommand($command->dto, null));
     }

@@ -20,9 +20,13 @@ class CustomerCollection implements IteratorAggregate
         $this->collection[] = $customer;
     }
 
-    public function last(): Customer
+    public function last(): ?Customer
     {
-        return $this->collection[array_key_last($this->collection)];
+        if (isset($this->collection[array_key_last($this->collection)])) {
+            return $this->collection[array_key_last($this->collection)];
+        }
+
+        return null;
     }
 
 

@@ -2,8 +2,6 @@
 declare(strict_types=1);
 
 namespace App\Domain\Service;
-use App\Domain\Entity\Customer;
-use App\Domain\Strategy\ProviderStrategy;
 use ArrayIterator;
 use IteratorAggregate;
 use Traversable;
@@ -32,10 +30,5 @@ class ChannelProviderCollection implements IteratorAggregate
     public function getIterator(): Traversable
     {
         return new ArrayIterator($this->collection);
-    }
-
-    public function getProvidersForCustomer(Customer $customer, ProviderStrategy $strategy): ChannelProviderCollection
-    {
-        return $strategy->getProviders($customer, $this);
     }
 }

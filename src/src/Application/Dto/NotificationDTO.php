@@ -3,25 +3,35 @@ declare(strict_types=1);
 
 namespace App\Application\Dto;
 
+use App\Domain\Collection\NotificationTranslationCollection;
 use App\Domain\ValueObject\Language;
-use OpenApi\Attributes as OA;
-use Symfony\Component\Validator\Constraints as Assert;
+use App\Domain\ValueObject\Notification;
+use App\Domain\ValueObject\NotificationTranslation;
 use JMS\Serializer\Annotation\Type as SerializerType;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Annotations as OA;
 
 class NotificationDTO
 {
-    #[Assert\Type('array')]
-    #[SerializerType('array')]
-    #[OA\Property(type: 'array', items: new OA\Items(), example: '[{""en"":""Message""}, {""lt"":""Pranešimas""}]')]
-    public array $contentCollection = []; //@TODO add validation
+    /**
+     * @var NotificationTranslationDTO[]
+     * @OA\Property(type="array", @OA\Items(ref=@Model(type=NotificationTranslationDTO::class)))
+     * @SerializerType("array<App\Application\Dto\NotificationTranslationDTO>")
+     */
+    public array $translations = [];
 
-    public function getByLanguage(Language $language): string
+    public function toValueObject(): Notification
     {
-        foreach ($this->contentCollection as $key => $content) {
-            if ($key === (string) $language) {
-                return $content;
-            }
+        $collection = new NotificationTranslationCollection();
+        foreach($this->translations as $translation) {
+            $collection->add(
+                new NotificationTranslation(
+                new Language($translation->language),
+                $translation->content
+                )
+            );
         }
-        return $this->contentCollection[0];
+
+        return new Notification($collection);
     }
 }

@@ -5,7 +5,7 @@ namespace App\Application\Command\Impl;
 
 use App\Application\Dto\NotificationDTO;
 
-class CreateNotification
+class CreateNotificationCommand
 {
     public function __construct(public readonly NotificationDTO $dto) {}
 }

@@ -35,13 +35,22 @@ services:
             - "%exception_to_status%"
         tags:
             - { name: 'kernel.event_listener', event: 'kernel.exception' }
+    App\Domain\Service\ChannelProviderCollection:
+        arguments:
+            - !tagged_iterator { tag: app.provider }
+    App\Infrastructure\Provider\AmazonSES\AmazonSESProvider:
+        arguments:
+            $isEnabled: '%env(bool:AMAZON_SES_ENABLED)%'
+        tags:
+            - { name: 'app.provider', priority: 1 }
+
     command_handlers:
-        namespace: App\Application\Command\
+        namespace: App\Application\Command\Handler\
         resource: '../../../src/Application/Command/Handler/*'
         tags:
             - { name: messenger.message_handler, bus: command.bus }
-    query_handlers:
-        namespace: App\Application\Query\
-        resource: '../../../src/Application/Query/Handler/*'
-        tags:
-            - { name: messenger.message_handler, bus: query.bus }
+#    query_handlers:
+#        namespace: App\Application\Query\Handler
+#        resource: '../../../src/Application/Query/Handler/*'
+#        tags:
+#            - { name: messenger.message_handler, bus: query.bus }
