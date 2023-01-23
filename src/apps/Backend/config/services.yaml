@@ -38,12 +38,20 @@ services:
     App\Domain\Service\ChannelProviderCollection:
         arguments:
             - !tagged_iterator { tag: app.provider }
+    App\Infrastructure\Provider\Mailgun\MailgunProvider:
+        arguments:
+            $isEnabled: '%env(bool:MAILGUN_ENABLED)%'
+        tags:
+            - { name: 'app.provider', priority: 2 }
     App\Infrastructure\Provider\AmazonSES\AmazonSESProvider:
         arguments:
             $isEnabled: '%env(bool:AMAZON_SES_ENABLED)%'
         tags:
             - { name: 'app.provider', priority: 1 }
-
+    App\Infrastructure\Provider\Mailgun\MailgunClient:
+        arguments:
+            $domain: '%env(MAILGUN_DOMAIN)%'
+            $apiKey: '%env(MAILGUN_API_KEY)%'
     command_handlers:
         namespace: App\Application\Command\Handler\
         resource: '../../../src/Application/Command/Handler/*'

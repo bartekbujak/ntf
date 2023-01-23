@@ -17,6 +17,7 @@
         "doctrine/mongodb-odm-bundle": "^4.4",
         "doctrine/orm": "^2.9",
         "jms/serializer-bundle": "^3.10",
+        "mailgun/mailgun-php": "*",
         "nelmio/api-doc-bundle": "^4.6",
         "ramsey/uuid": "^4.2",
         "symfony/asset": "5.3.*",

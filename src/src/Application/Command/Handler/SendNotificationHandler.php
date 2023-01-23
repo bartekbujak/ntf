@@ -7,6 +7,7 @@ use App\Application\Command\Impl\SendNotificationCommand;
 use App\Application\Event\Impl\NotificationFailedEvent;
 use App\Application\Event\Impl\NotificationSucceedEvent;
 use App\Domain\Exception\NotificationSendFailed;
+use App\Domain\Exception\NotificationTranslationNotFound;
 use App\Domain\Service\ChannelProviderCollection;
 use App\Domain\Strategy\ProviderStrategy;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -21,9 +22,14 @@ class SendNotificationHandler
 
     public function __invoke(SendNotificationCommand $command): void
     {
-        $notificationTranslation = $command->notification->translationCollection->getByPreferredLanguage(
-            $command->customer->preferredLanguage()
-        );
+        try {
+            $notificationTranslation = $command->notification->translationCollection->getByPreferredLanguage(
+                $command->customer->preferredLanguage()
+            );
+        } catch (NotificationTranslationNotFound) {
+            return;
+            // Skip customer, other solutions: get different language, translate using translator to preferred language.
+        }
         $providers = $this->providerStrategy->getProviders(
             $command->customer,
             $this->providerCollection,

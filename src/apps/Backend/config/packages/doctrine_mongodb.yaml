@@ -6,16 +6,22 @@ doctrine_mongodb:
             server: '%env(resolve:MONGODB_URL)%'
             options: {}
     default_database: '%env(resolve:MONGODB_DB)%'
+    types:
+        customerIdType: App\Infrastructure\Persistence\Doctrine\Type\CustomerIdType
+        emailType: App\Infrastructure\Persistence\Doctrine\Type\EmailType
+        phoneType: App\Infrastructure\Persistence\Doctrine\Type\PhoneType
+        languageType: App\Infrastructure\Persistence\Doctrine\Type\LanguageType
+        fullNameType: App\Infrastructure\Persistence\Doctrine\Type\FullNameType
     document_managers:
         default:
             auto_mapping: true
             mappings:
-                Static:
+                App:
                     is_bundle: false
                     type: xml
                     dir: '%kernel.project_dir%/../../src/Infrastructure/Persistence/Doctrine/Mapping'
                     prefix: 'App\Domain'
-                    alias: Static
+                    alias: App
                 Shared:
                     is_bundle: false
                     type: xml

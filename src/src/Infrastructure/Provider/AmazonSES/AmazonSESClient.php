@@ -25,9 +25,11 @@ class AmazonSESClient
      */
     public function sendEmail(Email $email, string $message): void
     {
+        $sender_email = 'noreply@notification.example.com';
+
         $this->sesClient->sendEmail([
             'Destination' => [
-                'ToAddresses' => (string) $email,
+                'ToAddresses' => [(string) $email],
             ],
             'ReplyToAddresses' => [$sender_email],
             'Source' => $sender_email,

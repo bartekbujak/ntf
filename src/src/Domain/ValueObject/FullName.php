@@ -12,6 +12,6 @@ final class FullName
 
     public function __toString(): string
     {
-        return "$this->firstName $this->firstName";
+        return "$this->firstName $this->lastName";
     }
 }

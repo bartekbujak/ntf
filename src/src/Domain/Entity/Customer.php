@@ -12,13 +12,17 @@ use App\Domain\ValueObject\PhoneNumber;
 class Customer
 {
     public function __construct(
-        public readonly CustomerId $id,
+        private CustomerId $id,
         private FullName $fullName,
         private Language           $preferredLanguage,
         private ?Email             $email = null,
         private ?PhoneNumber       $phone = null,
     ) {}
 
+    public function id(): CustomerId
+    {
+        return $this->id;
+    }
     public function preferredLanguage(): Language
     {
         return $this->preferredLanguage;

@@ -23,7 +23,7 @@ class BatchNotificationHandler
             $this->commandBus->dispatch(new SendNotificationCommand($command->dto->toValueObject(), $customer));
         }
         if ($lastCustomer) {
-            $this->commandBus->dispatch(new BatchNotificationCommand($command->dto, $lastCustomer->id));
+            $this->commandBus->dispatch(new BatchNotificationCommand($command->dto, $lastCustomer->id()));
         }
     }
 }
