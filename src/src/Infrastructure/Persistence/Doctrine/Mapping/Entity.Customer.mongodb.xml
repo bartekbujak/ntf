@@ -4,10 +4,10 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                 http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
     <document name="App\Domain\Entity\Customer">
-        <id strategy="NONE" type="customerIdType" />
+        <id strategy="NONE" type="customerIdType" field-name="id"/>
         <field name="fullName" type="fullNameType"/>
         <field name="preferredLanguage" type="languageType"/>
-        <field name="email" type="emailType" nullable="true" unique="true"/>
-        <field name="phone" type="phoneType" nullable="true" unique="true"/>
+        <field name="email" type="emailType" nullable="true"/>
+        <field name="phone" type="phoneType" nullable="true"/>
     </document>
 </doctrine-mongo-mapping>

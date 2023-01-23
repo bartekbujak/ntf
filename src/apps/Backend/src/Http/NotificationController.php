@@ -6,6 +6,7 @@ namespace Backend\Http;
 use App\Application\Command\Impl\CreateNotificationCommand;
 use App\Application\Dto\NotificationDTO;
 use JMS\Serializer\SerializerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

@@ -17,6 +17,6 @@ class CustomerIdType extends Type
 
     public function convertToDatabaseValue(mixed $value)
     {
-        return $value;
+        return (string) $value;
     }
 }

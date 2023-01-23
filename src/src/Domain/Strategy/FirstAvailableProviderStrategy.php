@@ -6,6 +6,7 @@ namespace App\Domain\Strategy;
 use App\Domain\Entity\Customer;
 use App\Domain\Exception\NotificationSendFailed;
 use App\Domain\Service\ChannelProviderCollection;
+use App\Domain\Service\Tracker;
 use App\Domain\ValueObject\NotificationTranslation;
 use Psr\Log\LoggerInterface;
 
@@ -13,6 +14,7 @@ class FirstAvailableProviderStrategy implements ProviderStrategy
 {
     public function __construct(
         private readonly LoggerInterface $logger,
+        private readonly Tracker $tracker,
     ){}
 
     public function execute(
@@ -24,7 +26,12 @@ class FirstAvailableProviderStrategy implements ProviderStrategy
         foreach ($providersForCustomer as $provider) {
             try {
                 $provider->sendNotification($customer, $notificationTranslation);
-                return;
+                $this->tracker->track(
+                    (string) $notificationTranslation,
+                    $provider->getName(),
+                    (string) $customer->fullName()
+                );
+                break;
             } catch (NotificationSendFailed) {
                 $this->logger->error('Provider not available' . $provider->getName());
                 continue;

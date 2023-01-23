@@ -72,7 +72,7 @@
         "tests": "composer ecs;composer phpstan;composer phpunit",
         "ecs": "./vendor/bin/ecs check",
         "phpstan": "./vendor/bin/phpstan analyse",
-        "phpunit": "composer drop-test-schema;composer test-fixtures;./vendor/bin/phpunit",
+        "phpunit": "./vendor/bin/phpunit",
         "drop-test-schema": "php apps/Backend/bin/console doctrine:mongodb:schema:drop --env=test",
         "test-fixtures": "php apps/Backend/bin/console doctrine:mongodb:fixtures:load --env=test -q",
         "run-migrations": "apps/Backend/bin/console d:m:m --dry-run",

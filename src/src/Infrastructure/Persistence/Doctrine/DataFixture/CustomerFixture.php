@@ -17,15 +17,35 @@ class CustomerFixture extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $customer = new Customer(
+        $customers = [];
+        // Create customers with email and phone number
+        for ($i=0; $i<10;$i++) {
+            $customers[] = new Customer(
+                new CustomerId(),
+                new FullName('Bartek', 'Bujak'),
+                new Language('en'),
+                new Email('bartek.bujak94@gmail.com'),
+                new PhoneNumber('+48508259291'),
+            );
+        }
+        //customers with empty phone number
+        $customers[] = new Customer(
             new CustomerId(),
             new FullName('Bartek', 'Bujak'),
             new Language('en'),
-            new Email('bartek.bujak94+1@gmail.com'),
-            new PhoneNumber('508 259 291'),
+            new Email('bartek.bujak94@gmail.com'),
         );
-        $manager->persist($customer);
+        //customers with empty email
+        $customers[] = new Customer(
+            new CustomerId(),
+            new FullName('Bartek', 'Bujak'),
+            new Language('en'),
+            null,
+            new PhoneNumber('+48508259291'),
+        );
+        foreach ($customers as $customer) {
+            $manager->persist($customer);
+        }
         $manager->flush();
-        // TODO: Implement load() method.
     }
 }

@@ -24,7 +24,6 @@ class TwilioProvider implements ChannelProvider
         try {
             $this->client->sendTextMessage($customer->phone(), (string)$notification);
         } catch (TwilioException $e) {
-            dd($e);
             $this->logger->error($e->getMessage());
             throw new NotificationSendFailed();
         }

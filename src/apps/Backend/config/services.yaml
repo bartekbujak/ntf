@@ -62,7 +62,7 @@ services:
             $sid: '%env(TWILIO_SID)%'
             $token: '%env(TWILIO_TOKEN)%'
             $twilioPhone: '%env(TWILIO_PHONE)%'
-    App\Domain\Strategy\ProviderStrategy: '@App\Domain\Strategy\AllAvailableProviderStrategy'
+    App\Domain\Strategy\ProviderStrategy: '@App\Domain\Strategy\FirstAvailableProviderStrategy'
     command_handlers:
         namespace: App\Application\Command\Handler\
         resource: '../../../src/Application/Command/Handler/*'
