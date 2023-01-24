@@ -8,6 +8,7 @@ use App\Domain\Entity\Customer;
 use App\Domain\Repository\CustomerRepository;
 use App\Domain\ValueObject\CustomerId;
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Doctrine\ORM\EntityNotFoundException;
 
 class DoctrineMongoCustomerRepository implements CustomerRepository
 {
@@ -26,5 +27,15 @@ class DoctrineMongoCustomerRepository implements CustomerRepository
         }
 
         return $collection;
+    }
+
+    public function findOne(CustomerId $customerId): Customer
+    {
+        $customer = $this->dm->getRepository(Customer::class)->find($customerId);
+        if (!($customer instanceof Customer)) {
+            throw new EntityNotFoundException('Customer not found');
+        }
+
+        return $customer;
     }
 }

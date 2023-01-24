@@ -7,6 +7,7 @@ use App\Domain\Entity\Customer;
 use App\Domain\Exception\NotificationSendFailed;
 use App\Domain\Service\ChannelProvider;
 use App\Domain\ValueObject\NotificationTranslation;
+use Mailgun\Exception\HttpServerException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Log\LoggerInterface;
 
@@ -23,7 +24,7 @@ class MailgunProvider implements ChannelProvider
     {
         try {
             $this->client->sendEmail($customer->email(), (string)$notification);
-        } catch (ClientExceptionInterface $e) {
+        } catch (ClientExceptionInterface|HttpServerException $e) {
             $this->logger->error($e->getMessage());
             throw new NotificationSendFailed();
         }

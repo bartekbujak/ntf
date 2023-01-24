@@ -20,6 +20,7 @@
         "mailgun/mailgun-php": "*",
         "nelmio/api-doc-bundle": "^4.6",
         "ramsey/uuid": "^4.2",
+        "symfony/amazon-sqs-messenger": "5.3.*",
         "symfony/asset": "5.3.*",
         "symfony/console": "5.3.*",
         "symfony/dotenv": "5.3.*",
@@ -77,6 +78,7 @@
         "test-fixtures": "php apps/Backend/bin/console doctrine:mongodb:fixtures:load --env=test -q",
         "run-migrations": "apps/Backend/bin/console d:m:m --dry-run",
         "run-assets": "apps/Backend/bin/console assets:install",
+        "consume": "php apps/Backend/bin/console messenger:consume async --time-limit=3600",
         "auto-scripts": {
             "apps/Backend/bin/console cache:clear": "script",
             "apps/Backend/bin/console assets:install %PUBLIC_DIR%": "script"

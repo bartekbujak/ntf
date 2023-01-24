@@ -8,3 +8,7 @@ build:
 	make down
 	docker-compose build
 	make up
+open:
+	open http://localhost:9325
+	open http://localhost:8081
+	open http://localhost:3000/api/doc

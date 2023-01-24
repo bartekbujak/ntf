@@ -1,6 +1,71 @@
-[23-Jan-2023 20:43:22 Europe/Zurich] 2023-01-23T20:43:22+01:00 [critical] Uncaught Exception: Cannot autowire service "App\Application\Command\Handler\SendNotificationHandler": argument "$providerStrategy" of method "__construct()" references interface "App\Domain\Strategy\ProviderStrategy" but no such service exists. You should maybe alias this interface to one of these existing services: "App\Domain\Strategy\AllAvailableProviderStrategy", "App\Domain\Strategy\FirstAvailableProviderStrategy".
-[23-Jan-2023 20:43:26 Europe/Zurich] 2023-01-23T20:43:26+01:00 [critical] Uncaught Exception: Cannot autowire service "App\Application\Command\Handler\SendNotificationHandler": argument "$providerStrategy" of method "__construct()" references interface "App\Domain\Strategy\ProviderStrategy" but no such service exists. You should maybe alias this interface to one of these existing services: "App\Domain\Strategy\AllAvailableProviderStrategy", "App\Domain\Strategy\FirstAvailableProviderStrategy".
-[23-Jan-2023 20:43:52 Europe/Zurich] 2023-01-23T20:43:52+01:00 [critical] Uncaught Exception: Cannot autowire service "App\Application\Command\Handler\SendNotificationHandler": argument "$providerStrategy" of method "__construct()" references interface "App\Domain\Strategy\ProviderStrategy" but no such service exists. You should maybe alias this interface to one of these existing services: "App\Domain\Strategy\AllAvailableProviderStrategy", "App\Domain\Strategy\FirstAvailableProviderStrategy".
-[23-Jan-2023 20:46:45 Europe/Zurich] 2023-01-23T20:46:45+01:00 [critical] Uncaught Exception: Cannot autowire service "App\Infrastructure\Provider\Twilio\TwilioClient": argument "$sid" of method "__construct()" is type-hinted "string", you should configure its value explicitly.
-[23-Jan-2023 20:46:50 Europe/Zurich] 2023-01-23T20:46:50+01:00 [critical] Uncaught Exception: Cannot autowire service "App\Infrastructure\Provider\Twilio\TwilioClient": argument "$sid" of method "__construct()" is type-hinted "string", you should configure its value explicitly.
-[23-Jan-2023 20:47:16 Europe/Zurich] 2023-01-23T20:47:16+01:00 [critical] Uncaught Exception: Cannot autowire service "App\Infrastructure\Provider\Twilio\TwilioClient": argument "$sid" of method "__construct()" is type-hinted "string", you should configure its value explicitly.
+[24-Jan-2023 08:46:07 Europe/Zurich] PHP Fatal error:  Uncaught Symfony\Component\HttpClient\Exception\TransportException: Couldn't resolve host name for "http://amazon-sqs:9324/". in /var/www/html/vendor/symfony/http-client/Response/CurlResponse.php:332
+Stack trace:
+#0 /var/www/html/vendor/symfony/http-client/Response/TransportResponseTrait.php(172): Symfony\Component\HttpClient\Response\CurlResponse::perform()
+#1 [internal function]: Symfony\Component\HttpClient\Response\CurlResponse::stream()
+#2 /var/www/html/vendor/symfony/http-client/Response/ResponseStream.php(47): Generator->rewind()
+#3 /var/www/html/vendor/symfony/http-client/Response/AsyncResponse.php(254): Symfony\Component\HttpClient\Response\ResponseStream->rewind()
+#4 [internal function]: Symfony\Component\HttpClient\Response\AsyncResponse::stream()
+#5 /var/www/html/vendor/symfony/http-client/Response/ResponseStream.php(47): Generator->rewind()
+#6 /var/www/html/vendor/async-aws/core/src/Response.php(143): Symfony\Component\HttpClient\Response\ResponseStream->rewind()
+#7 /var/www/html/vendor/async-aws/core/src/Result.php(63): AsyncAws\Core\Response->resolve()
+#8 /var/www/html/vendor/symfony/amazon-sqs-messenger/Transport/Connection.php(236): AsyncAws\Core\Result->resolve()
+#9 /var/www/html/vendor/symfony/amazon-sqs-messenger/Transport/Connection.php(227): Symfony\Component\Messenger\Bridge\AmazonSqs\Transport\Connection->fetchMessage()
+#10 /var/www/html/vendor/symfony/amazon-sqs-messenger/Transport/Connection.php(199): Symfony\Component\Messenger\Bridge\AmazonSqs\Transport\Connection->getNewMessages()
+#11 /var/www/html/vendor/symfony/amazon-sqs-messenger/Transport/Connection.php(186): Symfony\Component\Messenger\Bridge\AmazonSqs\Transport\Connection->getNextMessages()
+#12 /var/www/html/vendor/symfony/amazon-sqs-messenger/Transport/AmazonSqsReceiver.php(44): Symfony\Component\Messenger\Bridge\AmazonSqs\Transport\Connection->get()
+#13 /var/www/html/vendor/symfony/messenger/Worker.php(91): Symfony\Component\Messenger\Bridge\AmazonSqs\Transport\AmazonSqsReceiver->get()
+#14 /var/www/html/vendor/symfony/messenger/Command/ConsumeMessagesCommand.php(209): Symfony\Component\Messenger\Worker->run()
+#15 /var/www/html/vendor/symfony/console/Command/Command.php(299): Symfony\Component\Messenger\Command\ConsumeMessagesCommand->execute()
+#16 /var/www/html/vendor/symfony/console/Application.php(1006): Symfony\Component\Console\Command\Command->run()
+#17 /var/www/html/vendor/symfony/framework-bundle/Console/Application.php(96): Symfony\Component\Console\Application->doRunCommand()
+#18 /var/www/html/vendor/symfony/console/Application.php(295): Symfony\Bundle\FrameworkBundle\Console\Application->doRunCommand()
+#19 /var/www/html/vendor/symfony/framework-bundle/Console/Application.php(82): Symfony\Component\Console\Application->doRun()
+#20 /var/www/html/vendor/symfony/console/Application.php(167): Symfony\Bundle\FrameworkBundle\Console\Application->doRun()
+#21 /var/www/html/vendor/symfony/runtime/Runner/Symfony/ConsoleApplicationRunner.php(56): Symfony\Component\Console\Application->run()
+#22 /var/www/html/vendor/autoload_runtime.php(35): Symfony\Component\Runtime\Runner\Symfony\ConsoleApplicationRunner->run()
+#23 /var/www/html/apps/Backend/bin/console(11): require_once('...')
+#24 {main}
+
+Next Symfony\Component\HttpClient\Exception\TransportException: Couldn't resolve host name for "http://amazon-sqs:9324/". in /var/www/html/vendor/symfony/http-client/Chunk/ErrorChunk.php:53
+Stack trace:
+#0 /var/www/html/vendor/async-aws/core/src/Response.php(144): Symfony\Component\HttpClient\Chunk\ErrorChunk->isTimeout()
+#1 /var/www/html/vendor/async-aws/core/src/Result.php(63): AsyncAws\Core\Response->resolve()
+#2 /var/www/html/vendor/symfony/amazon-sqs-messenger/Transport/Connection.php(236): AsyncAws\Core\Result->resolve()
+#3 /var/www/html/vendor/symfony/amazon-sqs-messenger/Transport/Connection.php(227): Symfony\Component\Messenger\Bridge\AmazonSqs\Transport\Connection->fetchMessage()
+#4 /var/www/html/vendor/symfony/amazon-sqs-messenger/Transport/Connection.php(199): Symfony\Component\Messenger\Bridge\AmazonSqs\Transport\Connection->getNewMessages()
+#5 /var/www/html/vendor/symfony/amazon-sqs-messenger/Transport/Connection.php(186): Symfony\Component\Messenger\Bridge\AmazonSqs\Transport\Connection->getNextMessages()
+#6 /var/www/html/vendor/symfony/amazon-sqs-messenger/Transport/AmazonSqsReceiver.php(44): Symfony\Component\Messenger\Bridge\AmazonSqs\Transport\Connection->get()
+#7 /var/www/html/vendor/symfony/messenger/Worker.php(91): Symfony\Component\Messenger\Bridge\AmazonSqs\Transport\AmazonSqsReceiver->get()
+#8 /var/www/html/vendor/symfony/messenger/Command/ConsumeMessagesCommand.php(209): Symfony\Component\Messenger\Worker->run()
+#9 /var/www/html/vendor/symfony/console/Command/Command.php(299): Symfony\Component\Messenger\Command\ConsumeMessagesCommand->execute()
+#10 /var/www/html/vendor/symfony/console/Application.php(1006): Symfony\Component\Console\Command\Command->run()
+#11 /var/www/html/vendor/symfony/framework-bundle/Console/Application.php(96): Symfony\Component\Console\Application->doRunCommand()
+#12 /var/www/html/vendor/symfony/console/Application.php(295): Symfony\Bundle\FrameworkBundle\Console\Application->doRunCommand()
+#13 /var/www/html/vendor/symfony/framework-bundle/Console/Application.php(82): Symfony\Component\Console\Application->doRun()
+#14 /var/www/html/vendor/symfony/console/Application.php(167): Symfony\Bundle\FrameworkBundle\Console\Application->doRun()
+#15 /var/www/html/vendor/symfony/runtime/Runner/Symfony/ConsoleApplicationRunner.php(56): Symfony\Component\Console\Application->run()
+#16 /var/www/html/vendor/autoload_runtime.php(35): Symfony\Component\Runtime\Runner\Symfony\ConsoleApplicationRunner->run()
+#17 /var/www/html/apps/Backend/bin/console(11): require_once('...')
+#18 {main}
+
+Next AsyncAws\Core\Exception\Http\NetworkException: Could not contact remote server. in /var/www/html/vendor/async-aws/core/src/Response.php:155
+Stack trace:
+#0 /var/www/html/vendor/async-aws/core/src/Result.php(63): AsyncAws\Core\Response->resolve()
+#1 /var/www/html/vendor/symfony/amazon-sqs-messenger/Transport/Connection.php(236): AsyncAws\Core\Result->resolve()
+#2 /var/www/html/vendor/symfony/amazon-sqs-messenger/Transport/Connection.php(227): Symfony\Component\Messenger\Bridge\AmazonSqs\Transport\Connection->fetchMessage()
+#3 /var/www/html/vendor/symfony/amazon-sqs-messenger/Transport/Connection.php(199): Symfony\Component\Messenger\Bridge\AmazonSqs\Transport\Connection->getNewMessages()
+#4 /var/www/html/vendor/symfony/amazon-sqs-messenger/Transport/Connection.php(186): Symfony\Component\Messenger\Bridge\AmazonSqs\Transport\Connection->getNextMessages()
+#5 /var/www/html/vendor/symfony/amazon-sqs-messenger/Transport/AmazonSqsReceiver.php(44): Symfony\Component\Messenger\Bridge\AmazonSqs\Transport\Connection->get()
+#6 /var/www/html/vendor/symfony/messenger/Worker.php(91): Symfony\Component\Messenger\Bridge\AmazonSqs\Transport\AmazonSqsReceiver->get()
+#7 /var/www/html/vendor/symfony/messenger/Command/ConsumeMessagesCommand.php(209): Symfony\Component\Messenger\Worker->run()
+#8 /var/www/html/vendor/symfony/console/Command/Command.php(299): Symfony\Component\Messenger\Command\ConsumeMessagesCommand->execute()
+#9 /var/www/html/vendor/symfony/console/Application.php(1006): Symfony\Component\Console\Command\Command->run()
+#10 /var/www/html/vendor/symfony/framework-bundle/Console/Application.php(96): Symfony\Component\Console\Application->doRunCommand()
+#11 /var/www/html/vendor/symfony/console/Application.php(295): Symfony\Bundle\FrameworkBundle\Console\Application->doRunCommand()
+#12 /var/www/html/vendor/symfony/framework-bundle/Console/Application.php(82): Symfony\Component\Console\Application->doRun()
+#13 /var/www/html/vendor/symfony/console/Application.php(167): Symfony\Bundle\FrameworkBundle\Console\Application->doRun()
+#14 /var/www/html/vendor/symfony/runtime/Runner/Symfony/ConsoleApplicationRunner.php(56): Symfony\Component\Console\Application->run()
+#15 /var/www/html/vendor/autoload_runtime.php(35): Symfony\Component\Runtime\Runner\Symfony\ConsoleApplicationRunner->run()
+#16 /var/www/html/apps/Backend/bin/console(11): require_once('...')
+#17 {main}
+  thrown in /var/www/html/vendor/async-aws/core/src/Response.php on line 155

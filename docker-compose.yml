@@ -27,3 +27,9 @@ services:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: 123
       ME_CONFIG_MONGODB_URL: mongodb://root:123@mongo:27017/
+  amazon-sqs:
+    container_name: "sqs"
+    image: roribio16/alpine-sqs:latest
+    ports:
+      - '9324:9324'
+      - '9325:9325'

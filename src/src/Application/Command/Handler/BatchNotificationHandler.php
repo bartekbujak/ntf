@@ -20,7 +20,7 @@ class BatchNotificationHandler
         $customers = $this->repository->findManyFromCursor($command->cursor);
         $lastCustomer = $customers->last();
         foreach ($customers as $customer) {
-            $this->commandBus->dispatch(new SendNotificationCommand($command->dto->toValueObject(), $customer));
+            $this->commandBus->dispatch(new SendNotificationCommand($command->dto->toValueObject(), $customer->id()));
         }
         if ($lastCustomer) {
             $this->commandBus->dispatch(new BatchNotificationCommand($command->dto, $lastCustomer->id()));
