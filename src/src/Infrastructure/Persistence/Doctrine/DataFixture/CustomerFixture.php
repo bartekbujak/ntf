@@ -15,6 +15,10 @@ use Doctrine\Persistence\ObjectManager;
 
 class CustomerFixture extends Fixture
 {
+    /**
+     * Phone and email should be unique, Multiple customers have same email/phone only for testing purposes,
+     * Entity.Customer.mongodb.xml add unique attribute to phone and email fields.
+     **/
     public function load(ObjectManager $manager)
     {
         $customers = [];
