@@ -39,11 +39,11 @@ class NotificationController
      *          @OA\JsonContent(ref=@Model(type=NotificationDTO::class))
      *      ),
      *      @OA\Response(
-     *          response=201,
+     *          response=202,
      *          description="Successful operation",
      *       ),
      *      @OA\Response(
-     *          response=400,
+     *          response=422,
      *          description="Bad Request"
      *      )
      * )
@@ -68,11 +68,11 @@ class NotificationController
      *          @OA\JsonContent(ref=@Model(type=NotificationDTO::class))
      *      ),
      *      @OA\Response(
-     *          response=201,
+     *          response=202,
      *          description="Successful operation",
      *       ),
      *      @OA\Response(
-     *          response=400,
+     *          response=422,
      *          description="Bad Request"
      *      )
      * )
