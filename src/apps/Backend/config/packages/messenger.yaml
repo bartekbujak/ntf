@@ -15,3 +15,4 @@ when@test:
         messenger:
             routing:
                 'App\Application\Command\Impl\SendNotificationCommand': sync
+                'App\Application\Command\Impl\BatchNotificationCommand': sync
