@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Domain\Entity;
@@ -14,15 +15,17 @@ class Customer
     public function __construct(
         private CustomerId $id,
         private FullName $fullName,
-        private Language           $preferredLanguage,
-        private ?Email             $email = null,
-        private ?PhoneNumber       $phone = null,
-    ) {}
+        private Language $preferredLanguage,
+        private ?Email $email = null,
+        private ?PhoneNumber $phone = null,
+    ) {
+    }
 
     public function id(): CustomerId
     {
         return $this->id;
     }
+
     public function preferredLanguage(): Language
     {
         return $this->preferredLanguage;

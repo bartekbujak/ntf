@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Domain\ValueObject;
@@ -9,5 +10,6 @@ final class Notification
 {
     public function __construct(
         public readonly NotificationTranslationCollection $translationCollection
-    ) {}
+    ) {
+    }
 }

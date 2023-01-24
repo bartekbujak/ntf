@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Infrastructure\Persistence\Doctrine\DataFixture;
@@ -14,12 +15,11 @@ use Doctrine\Persistence\ObjectManager;
 
 class CustomerFixture extends Fixture
 {
-
     public function load(ObjectManager $manager)
     {
         $customers = [];
         // Create customers with email and phone number
-        for ($i=0; $i<10;$i++) {
+        for ($i = 0; $i < 10; ++$i) {
             $customers[] = new Customer(
                 new CustomerId(),
                 new FullName('Bartek', 'Bujak'),

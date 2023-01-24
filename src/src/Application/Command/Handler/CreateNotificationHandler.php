@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Application\Command\Handler;
@@ -11,7 +12,8 @@ class CreateNotificationHandler
 {
     public function __construct(
         private MessageBusInterface $commandBus,
-    ) {}
+    ) {
+    }
 
     public function __invoke(CreateNotificationCommand $command): void
     {

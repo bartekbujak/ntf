@@ -1,7 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Domain\Service;
+
 use App\Domain\Entity\Customer;
 use ArrayIterator;
 use IteratorAggregate;
@@ -19,7 +21,7 @@ class ChannelProviderCollection implements IteratorAggregate
     {
         foreach ($providers as $provider) {
             if (!($provider instanceof ChannelProvider)) {
-                throw new \InvalidArgumentException('Provider must implement: '. ChannelProvider::class);
+                throw new \InvalidArgumentException('Provider must implement: '.ChannelProvider::class);
             }
             if ($provider->isEnabled()) {
                 $this->collection[] = $provider;

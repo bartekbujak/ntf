@@ -1,8 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Infrastructure\Persistence\Doctrine\Type;
-use App\Domain\ValueObject\Email;
+
 use App\Domain\ValueObject\Language;
 use Doctrine\ODM\MongoDB\Types\ClosureToPHP;
 use Doctrine\ODM\MongoDB\Types\Type;

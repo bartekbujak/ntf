@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Infrastructure\Provider\Mailgun;
@@ -15,8 +16,7 @@ class MailgunClient
         private readonly string $domain,
         string $apiKey
     ) {
-        $this->mgClient= Mailgun::create($apiKey);
-
+        $this->mgClient = Mailgun::create($apiKey);
     }
 
     /**
@@ -25,10 +25,10 @@ class MailgunClient
     public function sendEmail(Email $email, string $message): void
     {
         $this->mgClient->messages()->send($this->domain, [
-            'from' => 'noreply@' . $this->domain,
+            'from' => 'noreply@'.$this->domain,
             'to' => (string) $email,
             'subject' => 'Notification',
-            'text' => $message
+            'text' => $message,
         ]);
     }
 }

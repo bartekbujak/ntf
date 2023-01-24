@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Domain\Strategy;
@@ -15,14 +16,14 @@ class FirstAvailableProviderStrategy implements ProviderStrategy
     public function __construct(
         private readonly LoggerInterface $logger,
         private readonly Tracker $tracker,
-    ){}
+    ) {
+    }
 
     public function execute(
         Customer $customer,
         NotificationTranslation $notificationTranslation,
         ChannelProviderCollection $providersForCustomer
-    ): void
-    {
+    ): void {
         foreach ($providersForCustomer as $provider) {
             try {
                 $provider->sendNotification($customer, $notificationTranslation);
@@ -31,9 +32,11 @@ class FirstAvailableProviderStrategy implements ProviderStrategy
                     $provider->getName(),
                     (string) $customer->fullName()
                 );
+
                 break;
             } catch (NotificationSendFailed) {
-                $this->logger->error('Provider not available' . $provider->getName());
+                $this->logger->error('Provider not available'.$provider->getName());
+
                 continue;
             }
         }

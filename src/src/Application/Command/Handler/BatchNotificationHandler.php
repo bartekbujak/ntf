@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Application\Command\Handler;
@@ -13,7 +14,8 @@ class BatchNotificationHandler
     public function __construct(
         private readonly CustomerRepository $repository,
         private readonly MessageBusInterface $commandBus,
-    ) {}
+    ) {
+    }
 
     public function __invoke(BatchNotificationCommand $command): void
     {

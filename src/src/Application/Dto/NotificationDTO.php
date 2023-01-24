@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Application\Dto;
@@ -23,11 +24,11 @@ class NotificationDTO
     public function toValueObject(): Notification
     {
         $collection = new NotificationTranslationCollection();
-        foreach($this->translations as $translation) {
+        foreach ($this->translations as $translation) {
             $collection->add(
                 new NotificationTranslation(
-                new Language($translation->language),
-                $translation->content
+                    new Language($translation->language),
+                    $translation->content
                 )
             );
         }

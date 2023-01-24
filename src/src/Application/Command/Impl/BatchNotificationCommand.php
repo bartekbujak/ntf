@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Application\Command\Impl;
@@ -11,5 +12,6 @@ class BatchNotificationCommand
     public function __construct(
         public readonly NotificationDTO $dto,
         public readonly ?CustomerId $cursor = null,
-    ) {}
+    ) {
+    }
 }

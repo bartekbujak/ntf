@@ -1,11 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Infrastructure\Provider\AmazonSES;
 
 use App\Domain\ValueObject\Email;
-use Aws\Ses\SesClient;
 use Aws\Exception\AwsException;
+use Aws\Ses\SesClient;
 
 class AmazonSESClient
 {
@@ -16,7 +17,7 @@ class AmazonSESClient
         $this->sesClient = new SesClient([
             'profile' => 'default',
             'version' => '2010-12-01',
-            'region' => 'us-east-2'
+            'region' => 'us-east-2',
         ]);
     }
 

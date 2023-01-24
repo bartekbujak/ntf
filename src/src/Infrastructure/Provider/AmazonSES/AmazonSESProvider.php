@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Infrastructure\Provider\AmazonSES;
@@ -16,7 +17,9 @@ class AmazonSESProvider implements ChannelProvider
         private readonly AmazonSESClient $client,
         private readonly LoggerInterface $logger,
         private readonly bool $isEnabled,
-    ) {}
+    ) {
+    }
+
     public function sendNotification(Customer $customer, NotificationTranslation $notification): void
     {
         try {

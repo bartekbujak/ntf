@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Infrastructure\Provider\Mailgun;
@@ -19,13 +20,16 @@ class MailgunProvider implements ChannelProvider
         private readonly MailgunClient $client,
         private readonly LoggerInterface $logger,
         private readonly bool $isEnabled,
-    ) {}
+    ) {
+    }
+
     public function sendNotification(Customer $customer, NotificationTranslation $notification): void
     {
         try {
-            $this->client->sendEmail($customer->email(), (string)$notification);
+            $this->client->sendEmail($customer->email(), (string) $notification);
         } catch (ClientExceptionInterface|HttpServerException $e) {
             $this->logger->error($e->getMessage());
+
             throw new NotificationSendFailed();
         }
     }

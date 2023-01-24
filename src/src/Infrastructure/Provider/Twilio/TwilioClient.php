@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Infrastructure\Provider\Twilio;
@@ -15,8 +16,7 @@ class TwilioClient
         string $sid,
         string $token,
         private readonly string $twilioPhone,
-    )
-    {
+    ) {
         $this->client = new Client($sid, $token);
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Infrastructure\Provider\Twilio;
@@ -15,16 +16,19 @@ class TwilioProvider implements ChannelProvider
     public const PROVIDER_NAME = 'Twilio';
 
     public function __construct(
-        private readonly TwilioClient    $client,
+        private readonly TwilioClient $client,
         private readonly LoggerInterface $logger,
-        private readonly bool            $isEnabled,
-    ) {}
+        private readonly bool $isEnabled,
+    ) {
+    }
+
     public function sendNotification(Customer $customer, NotificationTranslation $notification): void
     {
         try {
-            $this->client->sendTextMessage($customer->phone(), (string)$notification);
+            $this->client->sendTextMessage($customer->phone(), (string) $notification);
         } catch (TwilioException $e) {
             $this->logger->error($e->getMessage());
+
             throw new NotificationSendFailed();
         }
     }

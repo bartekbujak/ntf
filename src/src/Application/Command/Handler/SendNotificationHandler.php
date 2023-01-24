@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Application\Command\Handler;
@@ -15,11 +16,13 @@ class SendNotificationHandler
         private readonly ProviderStrategy $providerStrategy,
         private readonly ChannelProviderCollection $enabledProviders,
         private readonly CustomerRepository $customerRepository,
-    ) {}
+    ) {
+    }
 
     public function __invoke(SendNotificationCommand $command): void
     {
         $customer = $this->customerRepository->findOne($command->customerId);
+
         try {
             $notificationTranslation = $command->notification->translationCollection->getByPreferredLanguage(
                 $customer->preferredLanguage()

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Infrastructure\Persistence\Doctrine\Repository;
@@ -12,7 +13,10 @@ use Doctrine\ORM\EntityNotFoundException;
 
 class DoctrineMongoCustomerRepository implements CustomerRepository
 {
-    public function __construct(private DocumentManager $dm) {}
+    public function __construct(private DocumentManager $dm)
+    {
+    }
+
     public function findManyFromCursor(?CustomerId $cursor, int $limit = 10): CustomerCollection
     {
         $qb = $this->dm->createQueryBuilder(Customer::class);

@@ -1,7 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Domain\Collection;
+
 use App\Domain\Exception\NotificationTranslationNotFound;
 use App\Domain\ValueObject\Language;
 use App\Domain\ValueObject\NotificationTranslation;

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Infrastructure\Tracker;
@@ -8,7 +9,10 @@ use Psr\Log\LoggerInterface;
 
 class LogTracker implements Tracker
 {
-    public function __construct(private readonly LoggerInterface $logger) {}
+    public function __construct(private readonly LoggerInterface $logger)
+    {
+    }
+
     public function track(string $message, string $providerName, string $customerName): void
     {
         $date = new \DateTimeImmutable();
