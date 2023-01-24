@@ -10,6 +10,7 @@ final class Email
 
     public function __construct(string $value)
     {
+        //todo validate email
         $this->value = $value;
     }
 
