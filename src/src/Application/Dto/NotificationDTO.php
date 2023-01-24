@@ -11,6 +11,8 @@ use App\Domain\ValueObject\NotificationTranslation;
 use JMS\Serializer\Annotation\Type as SerializerType;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 class NotificationDTO
 {
@@ -18,6 +20,11 @@ class NotificationDTO
      * @var NotificationTranslationDTO[]
      * @OA\Property(type="array", @OA\Items(ref=@Model(type=NotificationTranslationDTO::class)))
      * @SerializerType("array<App\Application\Dto\NotificationTranslationDTO>")
+     * @Assert\All({
+     *    @Assert\Type("App\Application\Dto\NotificationTranslationDTO")
+     * })
+     * @Assert\Count(min=1)
+     * @Assert\Valid
      */
     public array $translations = [];
 

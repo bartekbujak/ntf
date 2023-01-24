@@ -8,6 +8,7 @@ use App\Application\Command\Impl\CreateNotificationCommand;
 use App\Application\Command\Impl\SendNotificationCommand;
 use App\Application\Dto\NotificationDTO;
 use App\Domain\ValueObject\CustomerId;
+use App\Infrastructure\Exception\ValidationErrorsException;
 use JMS\Serializer\SerializerInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
@@ -50,6 +51,7 @@ class NotificationController
     public function send(Request $request): JsonResponse
     {
         $dto = $this->serializer->deserialize($request->getContent(), NotificationDTO::class, 'json');
+        $this->validateDto($dto);
         $this->commandBus->dispatch(new CreateNotificationCommand($dto));
 
         return new JsonResponse([], Response::HTTP_ACCEPTED);
@@ -79,11 +81,25 @@ class NotificationController
     {
         /** @var NotificationDTO $dto */
         $dto = $this->serializer->deserialize($request->getContent(), NotificationDTO::class, 'json');
+        $this->validateDto($dto);
         $this->commandBus->dispatch(new SendNotificationCommand(
             $dto->toValueObject(),
             new CustomerId($customerId)
         ));
 
         return new JsonResponse([], Response::HTTP_ACCEPTED);
+    }
+
+    protected function validateDto(mixed $dto): void
+    {
+        $errors = $this->validatorInterface->validate($dto);
+        if (count($errors)) {
+            $responseErrors = [];
+            foreach ($errors as $error) {
+                $responseErrors[$error->getPropertyPath()] = $error->getMessage();
+            }
+
+            throw new ValidationErrorsException(json_encode($responseErrors));
+        }
     }
 }
